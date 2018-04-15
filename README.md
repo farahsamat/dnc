@@ -17,7 +17,7 @@ The data used in this project is [MIMIC III](https://www.nature.com/articles/sda
 <br></br>
 IMPLEMENTATION
 
-Each clinical text input is vectorized using [Spacy](https://spacy.io) word embedding model. Each input has possibly more than one label as usually patients are diagnosed with multiple illness categories. The vectorized inputs and their associated encoded labels are then used for training.
+Each clinical text [input](https://github.com/farah-samat/dnc/blob/master/discharge_notes.csv) is vectorized using [Spacy](https://spacy.io) word embedding model. Each input has possibly more than one [label](https://github.com/farah-samat/dnc/blob/master/diagnosis_codes.csv) as usually patients are diagnosed with multiple illness categories. The vectorized inputs and their associated encoded labels are then used for training.
 [Samir's](https://github.com/Mostafa-Samir/DNC-tensorflow) work on DNC is adopted and used as reference for model training. We use 1-layer 64 hidden nodes LSTM with Sigmoid activation function as our DNC base controller, RMS Prop optimizer and Sigmoid cross entropy as the cost function
 
 <br></br>
@@ -28,5 +28,5 @@ MODEL PERFORMANCE
 <br></br>
 DISCLAIMER
 
-The data cannot be disclosed publicly as it [contains sensitive information though de-identified](https://mimic.physionet.org/gettingstarted/access/).
+We provide dummy data as the real MIMIC III cannot be disclosed publicly as it [contains sensitive information though de-identified](https://mimic.physionet.org/gettingstarted/access/).
 Due to time constraint, the model training does not really represent sequential data modelling as word embedding is used to represent each text input. However we compare the performance of DNC against LSTM, Random Forest and SVM.
