@@ -68,7 +68,7 @@ We also observe that DNC has the lowest Hamming loss readings over 100 iteration
 <br></br>
 #### Conclusions
 
-DNC outperformed all our baselines in terms of performance.
+We have demonstrated an application of DNC in clinical text classification and the model outperformed all our baselines in terms of performance.
 <br></br>
 
 #### Challenges and future work
@@ -76,6 +76,8 @@ DNC outperformed all our baselines in terms of performance.
 Applying natural language processing on clinical text is challenging. As mentioned earlier, we remove stop words, white space, numbers and special characters during text-processing. However,[numbers can give meaningful insights in medical context](https://www3.nd.edu/~nchawla/papers/ichi16b.pdf) (Feldman, Hazekamp & Chawla, n.d.). Negation words (e.g. 'no', 'not', etc.) are commonly used in clinical text and often give critical information on patients' health. Removing negation words will result the wrong clinical inference. A lot of mispelling was observed during our data processing and those words were tokenized individually which produces a rich vocabulary.
 
 The model training does not really represent sequential data modelling as word embedding is used to represent each text input. As such, we would like to have the correct sequential modelling for clinical text since we did not take advantage if the sequential features of DNC.
+
+Training DNCs also takes a relatively long time and we are exploring ways to minimize the training duration.
 <br></br>
 
 ------
