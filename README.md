@@ -17,7 +17,7 @@ DATA
 
 [Text](https://github.com/farah-samat/dnc/blob/master/discharge_notes.csv) pre-processing is done to reduce noise and to increase the speed of model training. We do essential text pre-processing including stop words, white space, numbers and special characters removal. 
 
-We group the [codes (labels)](https://github.com/farah-samat/dnc/blob/master/diagnosis_codes.csv) into a set that corresponds to an admission and encode them into binary numbers. The encoded labels are the ones that will be used for model training. 
+We group the [codes (labels)](https://github.com/farah-samat/dnc/blob/master/diagnosis_codes.csv)** into a set that corresponds to an admission and encode them into binary numbers. The encoded labels are the ones that will be used for model training. 
 
 We categorize our problem as a multilabel text classification since a text can be classified into more than one diagnosis codes. 
 <br></br>
@@ -54,21 +54,33 @@ We set a few models – LSTM (Hochreiter & Schmidhuber, 1997), and classic machi
 <br></br>
 
 FRAMEWORK AND LIBRARIES
+
 We use Python 3.6 on TensorFlow (1.4.1) as our deep learning framework, Scikit-learn (0.19.1), numPy (1.14.0), pandas (0.20.3) in our model building training and evaluation process. We also use nltk (3.2.4) and spaCy (2.0.5) for our text pre-processing and vectorization.
 <br></br>
 #### Results
-To be updated
+
+We compare the average loss between LSTM and DNC.
+![Average loss for DNC and LSTM](https://github.com/farah-samat/dnc/blob/master/Average_loss.png)
+
+We also observe that DNC has the lowest Hamming loss readings over 100 iterations***.
+![Hamming loss observation](https://github.com/farah-samat/dnc/blob/master/Model_performance.png)
 
 <br></br>
 #### Conclusions
-To be updated
 
+DNC outperformed all our baselines in terms of performance.
 <br></br>
 
-#### Future Work
+#### Challenges and future work
+
+Applying natural language processing on clinical text is challenging. As mentioned earlier, we remove stop words, white space, numbers and special characters during text-processing. However,[numbers can give meaningful insights in medical context](https://www3.nd.edu/~nchawla/papers/ichi16b.pdf) (Feldman, Hazekamp & Chawla, n.d.). Negation words (e.g. 'no', 'not', etc.) are commonly used in clinical text and often give critical information on patients' health. Removing negation words will result the wrong clinical inference. A lot of mispelling was observed during our data processing and those words were tokenized individually which produces a rich vocabulary.
 
 The model training does not really represent sequential data modelling as word embedding is used to represent each text input. As such, we would like to have the correct sequential modelling for clinical text since we did not take advantage if the sequential features of DNC.
 <br></br>
 
 ------
 *We provide dummy data as the real MIMIC III cannot be disclosed publicly. Visit [physionet](https://mimic.physionet.org/gettingstarted/access/) to request for access.
+
+**Only top 50 diagnoses were included for training as the rest of the diagnoses are scarce and would not help in learning process.
+
+***A small dataset (4000+ instances) was used to get the results in a limited time.
