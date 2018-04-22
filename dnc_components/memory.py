@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import dnc.utility
+import dnc_components.utility
 
 class Memory:
 

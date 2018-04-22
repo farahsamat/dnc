@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow.python.ops.rnn_cell import LSTMStateTuple
-from dnc.memory import Memory
-import dnc.utility
+from dnc_components.memory import Memory
+import dnc_components.utility
 import os
 
 chunk_size = 1304

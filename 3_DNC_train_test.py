@@ -9,8 +9,8 @@ import os
 import time
 import pickle
 
-from dnc.dnc import DNC
-from recurrent_controller import RecurrentController
+from dnc_components.dnc import DNC
+from dnc_recurrent_controller import RecurrentController
 from sklearn.model_selection import train_test_split
 
 # Load data
