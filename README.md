@@ -15,16 +15,16 @@ DATA
 
 [MIMIC-III data*](https://www.nature.com/articles/sdata201635) (Johnson et al., 2016) contains EMR data from 46,146 patients from the year 2001 to 2012. 58,362 unique hospital admissions were recorded. For this project we are interested in the clinical texts and the corresponding diagnoses which were recorded in the [NOTEEVENTS](https://mimic.physionet.org/mimictables/noteevents/) table and [DIAGNOSIS_ICD](https://mimic.physionet.org/mimictables/diagnoses_icd/) table respectively.
 
-[Text](https://github.com/farah-samat/dnc/blob/master/discharge_notes.csv) pre-processing is done to reduce noise and to increase the speed of model training. We do essential text pre-processing including stop words, white space, numbers and special characters removal. 
+[Text](https://github.com/farah-samat/dnc/blob/master/data/discharge_notes.csv) pre-processing is done to reduce noise and to increase the speed of model training. We do essential text pre-processing including stop words, white space, numbers and special characters removal. 
 
-We group the [codes (labels)](https://github.com/farah-samat/dnc/blob/master/diagnosis_codes.csv)** into a set that corresponds to an admission and encode them into binary numbers. The encoded labels are the ones that will be used for model training. 
+We group the [codes (labels)](https://github.com/farah-samat/dnc/blob/master/data/diagnosis_codes.csv)** into a set that corresponds to an admission and encode them into binary numbers. The encoded labels are the ones that will be used for model training. 
 
 We categorize our problem as a multilabel text classification since a text can be classified into more than one diagnosis codes. 
 <br></br>
 
 MODEL
 
-The DNC copy task implementation on TensorFlow by [Google DeepMind](https://github.com/deepmind/dnc) is used as reference. We adapt the copy task script by [Mostafa Samir] (https://github.com/Mostafa-Samir/DNC-tensorflow/tree/master/tasks/copy) with a few changes to suit the nature of our problem. 
+The DNC copy task implementation on TensorFlow by [Google DeepMind](https://github.com/deepmind/dnc) is used as reference. We adapt the copy task script by [Mostafa Samir](https://github.com/Mostafa-Samir/DNC-tensorflow/tree/master/tasks/copy) with a few changes to suit the nature of our problem. 
 
 A 1- layer LSTM network with 64 hidden nodes and sigmoid activation function is set to be the DNC controller. At time-step t, an external input, x(t) and a series of read vectors at the previous time-step t−1, are concatenated and fed to the controller as X(t).  
 
@@ -37,7 +37,7 @@ The controller output, v(t) is then concatenated with the current time-step read
 
 TRAINING
 
-We vectorize our pre-processed text inputs using [word embedding method](https://arxiv.org/abs/1301.3781) (Mikolov et al., 2013) and split the data into 9:1 training to test set ratio. Each input is now represented by a vector of size (128, 1).  
+We use [spaCy](https://spacy.io/) library that applies [GloVe](https://nlp.stanford.edu/projects/glove/) to vectorize our pre-processed text inputs. We split the data into 9:1 training to test set ratio. Each input is now represented by a vector of size (128, 1).  
 
 Using batches of size one, the model is trained with gradient descent where cost, the difference between the predicted label and the true label is minimized (LeCun, Bengio & Hinton, 2015) through back propagation (Rumelhart, Hinton & Williams, 1986). We use sigmoid cross entropy activation function since our labels are binary. The model parameters are optimized using RMS Prop Optimizer (Ruder, 2017, Dauphin et al. 2015) with learning rate = 0.001 and momentum = 0.9. 
 <br></br>
@@ -73,7 +73,9 @@ We have demonstrated an application of DNC in clinical text classification and t
 
 #### Challenges and future work
 
-Applying natural language processing on clinical text is challenging. As mentioned earlier, we remove stop words, white space, numbers and special characters during text-processing. However,[numbers can give meaningful insights in medical context](https://www3.nd.edu/~nchawla/papers/ichi16b.pdf) (Feldman, Hazekamp & Chawla, n.d.). Negation words (e.g. 'no', 'not', etc.) are commonly used in clinical text and often give critical information on patients' health. Removing negation words will result the wrong clinical inference. A lot of mispelling was observed during our data processing and those words were tokenized individually which produces a rich vocabulary.
+Applying natural language processing on clinical text is challenging. As mentioned earlier, we remove stop words, white space, numbers and special characters during text-processing. However,[numbers can give meaningful insights in medical context](https://www3.nd.edu/~nchawla/papers/ichi16b.pdf) (Feldman, Hazekamp & Chawla, n.d.). Negation words (e.g. 'no', 'not', etc.) are commonly used in clinical text and often give critical information on patients' health. Removing negation words will result the wrong clinical inference. 
+
+A lot of mispelling was observed during our data processing and those words were tokenized individually which produces a rich vocabulary. We would like to explore other text processing libraries e.g. [fastText](https://fasttext.cc/) and observe the model performance using this word representation.
 
 The model training does not really represent sequential data modelling as word embedding is used to represent each text input. As such, we would like to have the correct sequential modelling for clinical text since we did not take advantage if the sequential features of DNC.
 
