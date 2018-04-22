@@ -32,7 +32,7 @@ The outputs of the controller at the current time-step t are an output vector v(
 
 The controller output, v(t) is then concatenated with the current time-step read vectors and forms the output y(t) of the DNC model. No changes are made to the memory module and we use it as is for our DNC training. 
 
-![High-level DNC structure](https://github.com/farah-samat/dnc/blob/master/DNC.png)
+![High-level DNC structure](https://github.com/farah-samat/dnc/blob/master/images/DNC.png)
 <br></br>
 
 TRAINING
@@ -45,7 +45,7 @@ Using batches of size one, the model is trained with gradient descent where cost
 MODEL PERFORMANCE
 
 Since this is a multilabel classification problem, we use [Hamming loss](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.hamming_loss.html) to evaluate the model performance. The Hamming loss is the fraction of labels that are incorrectly predicted and is expressed as follows. 
-![Hamming loss](https://github.com/farah-samat/dnc/blob/master/Hamming_loss.png)
+![Hamming loss](https://github.com/farah-samat/dnc/blob/master/images/Hamming_loss.png)
 <br></br>
 
 BASELINES
@@ -60,10 +60,10 @@ We use Python 3.6 on TensorFlow (1.4.1) as our deep learning framework, Scikit-l
 #### Results
 
 We compare the average loss between LSTM and DNC.
-![Average loss for DNC and LSTM](https://github.com/farah-samat/dnc/blob/master/Average_loss.png)
+![Average loss for DNC and LSTM](https://github.com/farah-samat/dnc/blob/master/images/Average_loss.png)
 
 We also observe that DNC has the lowest Hamming loss readings over 100 iterations***.
-![Hamming loss observation](https://github.com/farah-samat/dnc/blob/master/Model_performance.png)
+![Hamming loss observation](https://github.com/farah-samat/dnc/blob/master/images/Model_performance.png)
 
 <br></br>
 #### Conclusions
